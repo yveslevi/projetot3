@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="/styles/style.css" />
+<script>
+  const getPets = () => {
+    fetch("/pet", {
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    })
+      .then(async (result) => {
+        const response = await result.json();
+        console.log(response);
+        const listContainer = document.getElementById("listContainer");
+        listContainer.innerHTML = "";
+        response.forEach((pet) => {
+          var li = document.createElement("li");
+          li.textContent = pet.name;
+          listContainer.appendChild(li);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  getPets();
+  const createPet = async (event) => {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const photo = document.getElementById("photo").value;
+    const favoriteToy = document.getElementById("favoriteToy").value;
+
+    await fetch("/pets", {
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+      body: JSON.stringify({
+        name,
+        favoriteToy,
+        photo,
+      }),
+    });
+
+    getPets();
+  };
+</script>
+<form class="form-pet">
+  <label for="name">nome</label>
+  <input type="text" name="name" id="name" />
+
+  <label for="photo">foto</label>
+  <input type="text" name="photo" id="photo" />
+
+  <label for="favoriteToy">Brinquedo favorito</label>
+  <input type="text" name="favoriteToy" id="favoriteToy" />
+  <button onclick="createPet(event)">create</button>
+
+  <ul id="listContainer"></ul>
+</form>

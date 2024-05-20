@@ -1,0 +1,4 @@
+.form-pet{
+    display: flex;
+    flex-direction: column;
+}

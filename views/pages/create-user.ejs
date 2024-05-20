@@ -1,0 +1,28 @@
+<script>
+  const doLogin = async (event) => {
+    event.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const fileInput = document.getElementById("file").files[0];
+    const bio = document.getElementById("bio").value;
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("username", username);
+    formData.append("bio", bio);
+    formData.append("profile_photo", fileInput);
+
+    await fetch("/sign-up", { method: "post", body: formData });
+  };
+</script>
+<form>
+  <input type="email" name="email" id="email" />
+  <input type="password" name="password" id="password" />
+  <input type="username" name="username" id="username" />
+  <input type="file" name="file" id="file" />
+  <textarea type="bio" name="bio" id="bio"></textarea>
+
+  <button onclick="doLogin(event)">create</button>
+</form>
