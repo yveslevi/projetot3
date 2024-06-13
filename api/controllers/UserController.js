@@ -1,14 +1,13 @@
 module.exports = {
   create: async (req, res) => {
     const url = await sails.helpers.upload(req, "profile_photo");
-    await Users.create({ ...req.body, id: "sas", profile_photo: url });
+    await Users.novo({ ...req.body, id: "sas", profile_photo: url });
     return res.json({
       success: true,
     });
   },
   login: async (req, res) => {
     const user = await Users.findOne({ email: req.body.email });
-    console.log(user);
     if (!user || user.password !== req.body.password) {
       return res.json({
         code: "INVALID_CREDENTIALS",

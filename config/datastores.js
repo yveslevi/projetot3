@@ -45,9 +45,6 @@ module.exports.datastores = {
      *    (See https://sailsjs.com/config/datastores for help.)                 *
      *                                                                          *
      ***************************************************************************/
-    default: {
-      adapter: "sails-postgresql",
-      url: "postgresql://my_user:my_password@localhost:5432/petbook",
-    },
+
   },
 };
