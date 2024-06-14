@@ -1,7 +1,7 @@
 module.exports = {
   create: async (req, res) => {
     const url = await sails.helpers.upload(req, "profile_photo");
-    await Users.novo({ ...req.body, id: "sas", profile_photo: url });
+    await Users.create({ ...req.body, id: "sas", profile_photo: url });
     return res.json({
       success: true,
     });
